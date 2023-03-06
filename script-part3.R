@@ -1,6 +1,9 @@
+### Curso Taller de R para investigadores 
+### Script parte 3 - modelos mixtos
 
-### Mixed models
+### Modelos mixtos
 library(lme4)
+library(ggplot2)
 
 # interceptos aleatorios
 # repuesta ~ fixed_effects + (1 | random_effects)
@@ -18,7 +21,6 @@ head(lme4::sleepstudy)
 length(unique(sleepstudy$Subject))
 
 # graficando un modelo que asume independencia de observaciones
-library(ggplot2)
 
 # pipe operator, original version %>% from library(magrittr) 
 sleepstudy |>
