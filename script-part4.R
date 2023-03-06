@@ -7,12 +7,17 @@
 # ***regresiones Poisson tambien pueden modelarse usando cloglog como funcion de enlace***
 
 # cargamos los datos del mismo caso de estudio que en el script-part-1
-respuestas <- read.csv("data/bird_community.csv", stringsAsFactors = FALSE)[, -1]
-predictores <- read.csv("data/predictor_variables.csv", stringsAsFactors = FALSE)
+respuestas <- read.csv("data/bird_community.csv", 
+                       stringsAsFactors = FALSE)[, -1]
+predictores <- read.csv("data/predictor_variables.csv", 
+                        stringsAsFactors = FALSE)
 
 # de las 118 especies trabajaremos solo con "greentailedtowhee" 
 # usaremos como predictores la temperatura maxima (max_temp), la cobertura de vegetacion (veg_cover)
 # y la elevacion (elevation_m)
+
+
+###jXXXXXXKXKX hist(boot::logit(predictores$sagebrush_cover))
 
 # entonces nuestro training dataset sera de tres columnas, primero la resp y luego las 2 predictoras
 train_data <- data.frame(abundancia = respuestas$greentailedtowhee,
@@ -72,7 +77,7 @@ hist(train_data$scaled_max_temp)
 hist(train_data$logit_veg_cover)
 hist(train_data$scaled_logit_veg_cover, breaks = 25)
 
-# Ahora recien vamos a entrenar el modelo
+# Ahora recién vamos a entrenar el modelo
 mod_abund <- glm(abundancia ~ scaled_logit_veg_cover + scaled_max_temp,
                   family = poisson("log"),
                   data = train_data)
@@ -81,7 +86,9 @@ summary(mod_abund)
 # bondad de ajuste calculada con el paquete 'performance'
 performance::r2(mod_abund) 
 
+confint(mod_abund)
 
+out <- predict(mod_abund)
 
 # B: Datos binarios --> distribucion Bernoulli (o Binomial) [funcion de enlace = logit]
 
