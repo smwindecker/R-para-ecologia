@@ -9,7 +9,13 @@ Con apoyo de [R Consortium](https://www.r-consortium.org/)
 ## Universidad Mayor de San Andrés (UMSA), La Paz 23 - 24 Feb
 ## Universidad Mayor de San Simón (UMSS), Cochabamba 6 - 8 Mar
 
-Aqui se encuentre materiales para el curso-taller de análisis de datos con modelos lineales, generalizados y mixtos. 
+Aquí se encuentran materiales para el curso-taller de análisis de datos con modelos lineales, modelos lineales generalizados, y mixtos, dictado por Saras Windecker y [David Uribe](https://github.com/duriber). 
+
+* `diapositivas.pdf` : las diapositivas para los tres días del curso
+* `data/` : datos usados en los scripts
+* `scripts/` : código de los prácticos organizados en 4 scripts
+* `Ejercicios.R` : ejercicios para la introducción a R
+* `rgbif_cantua.R` : ejemplo de código que descarga datos públicos de especies y climas
 
 Mas recursos:
 
