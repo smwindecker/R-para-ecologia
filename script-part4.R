@@ -43,7 +43,7 @@ train_data$veg_cover[train_data$veg_cover == 1] <- 0.9999
 
 
 library(dplyr) # para usar funciones de tidyverse como vimos ayer
-train_data <- train_data|>
+train_data <- train_data |>
   mutate(logit_veg_cover = boot::logit(veg_cover)) # la funcion logit no esta en base R
 
 # chequeamos el resultado
@@ -78,7 +78,8 @@ hist(train_data$logit_veg_cover)
 hist(train_data$scaled_logit_veg_cover, breaks = 25)
 
 # Ahora recién vamos a entrenar el modelo
-mod_abund <- glm(abundancia ~ scaled_logit_veg_cover + scaled_max_temp,
+mod_abund <- glm(abundancia ~ as.numeric(scaled_logit_veg_cover) + 
+                   as.numeric(scaled_max_temp),
                   family = poisson("log"),
                   data = train_data)
 
@@ -88,8 +89,21 @@ performance::r2(mod_abund)
 
 confint(mod_abund)
 
-out <- predict(mod_abund)
+out <- predict(mod_abund,
+               type = 'response')
+# tambien podemos generar predicciones en nuevos datos
 
+#aqui simulamos datos
+NewData <- data.frame(scaled_logit_veg_cover = rnorm(100, 0.5),
+                      scaled_max_temp = rnorm(100,-0.5))
+# y usamos el argumento 'newdata' con datos de los predictores
+out_new <- predict(mod_abund,
+               type = 'response',
+               newdata = NewData)
+# datos ajustados (predicciones sobre mismos datos de entrenamiento)
+hist(out)
+# predicciones sobre los nuevos datos
+hist(out_new)
 # B: Datos binarios --> distribucion Bernoulli (o Binomial) [funcion de enlace = logit]
 
 # un ejemplo comun de datos binarios en ecologia son datos de presencia/ausencia
@@ -104,8 +118,8 @@ table(occupacion)
 table(train_data$abundancia) # chequeando que los 0s sean los mismos
 
 datos_PresAus <- data.frame(occupacion = occupacion,
-                            max_temp = train_data$scaled_max_temp,
-                            veg_cover = train_data$scaled_logit_veg_cover) 
+                            max_temp = as.numeric(train_data$scaled_max_temp),
+                            veg_cover = as.numeric(train_data$scaled_logit_veg_cover)) 
 
 # regresion logistica
 mod_logistico <- glm(occupacion ~ max_temp + veg_cover,

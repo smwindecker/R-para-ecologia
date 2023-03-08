@@ -13,10 +13,12 @@ cantua_coords <- cantua[!is.na(cantua$decimalLongitude),
 # occ_search(): limitada a 100K registros
 # occ_download(pred("taxonKey", taxonKey)) 
 
-bol <- geodata::worldclim_country('Bolivia', 'tavg', 'data/')
-tavg <- geodata::worldclim_tile('tavg', lat = cantua_coords[3, 'decimalLatitude'], 
-                                lon = cantua_coords[3, 'decimalLongitude'],
-                                path = 'data/')[[1]]
+# bol <- geodata::worldclim_country(
+#   'Bolivia', 'tavg', 'data/')
+tavg <- geodata::worldclim_tile(
+  'tavg', lat = cantua_coords[3, 'decimalLatitude'], 
+  lon = cantua_coords[3, 'decimalLongitude'],
+  path = 'data/')[[1]]
 plot(tavg)
 points(cantua_coords, pch = 20)
 
