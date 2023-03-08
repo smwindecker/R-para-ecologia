@@ -32,7 +32,7 @@ boxplot(precipitacion ~ mountain_range,
 mod <- lm(precipitacion ~ mountain_range, data = train_data)
 
 # chequeo visual de los resultados
-plot(mod)
+check_model(mod)
 
 # `summarise` es una función para reportar un resumen del modelo
 summary(mod)
@@ -41,6 +41,12 @@ summary(mod)
 levels(train_data$mountain_range)
 levels(as.factor(train_data$mountain_range))
 # Monitor es el primer nivel
+
+# tambien podemos usar el funcione para ANOVA directo
+summary(aov(precipitacion ~ mountain_range, data = train_data))
+
+# los niveles son un poco desbalanceado
+table(train_data$mountain_range)
 
 # si cambiamos el orden, vamos a tener una montana diferente como defecto:
 train_data$mountain_range <- factor(train_data$mountain_range, 
@@ -54,11 +60,13 @@ summary(mod)
 # viendo la matriz
 model.matrix(~ mountain_range, data = train_data)
 
-
 # t-test 
 # convertir las niveles de montana de 4 a 2 para hacer ttest
 train_data$region <- ifelse(train_data$mountain_range %in% 
                               c("Monitor", "Toquima"), "East", "West")
+# ifelse(condicion, hacer esto si es VERDAD, 
+#       hacer esto otro si es FALSO)
+
 tmod <- t.test(precipitacion ~ region, data = train_data)
 tmod
 
@@ -68,7 +76,9 @@ tmod
 predictor_variables <- predictores[, c(7, 8, 15)]
 cor_pred <- cor(predictor_variables)
 cor_mat <- round(cor_pred, 2)
-corrplot::corrplot(cor_mat)
+corrplot::corrplot(cor_mat, 
+                   type = "lower", 
+                   method = 'number')
 
 # solucion: sacar variables hasta que ninguna tienen alta correlación
 
@@ -86,6 +96,11 @@ summary(mod_multiple)
 # tratamos de summarisar 
 # precipitacion ~ -144.8 + 0.108*elevacion + 0.02916*terrain_ruggedness 
                   # + N(0, 51.39)
+
+mod_multiple2 <- lm(precipitacion ~ elevacion + terrain_ruggedness + mountain_range, 
+                   data = train_data)
+summary(mod_multiple2)
+plot(terrain_ruggedness ~ mountain_range, data = train_data)
 
 # es buen practica estandardizar variables predictoras continuas 
 train_data <- train_data |>
