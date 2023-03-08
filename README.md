@@ -17,6 +17,8 @@ Aquí se encuentran materiales para el curso-taller de análisis de datos con mo
 * `Ejercicios.R` : ejercicios para la introducción a R
 * `rgbif_cantua.R` : ejemplo de código que descarga datos públicos de especies y climas
 
+Para descargar un archivo comprimido con todo los contenidos deberan clickear en el boton verde al comienzo de la pagina ("<> Code"), y seleccionar "download zipfile". Luego extraer el archivo y al abrir la carpeta, para correr los scripts deberan abrir el archivo con extension `.Rproj`. 
+
 Mas recursos:
 
 [Curso introductorio](https://www.uv.es/vcoll/data-wrangling.html)
