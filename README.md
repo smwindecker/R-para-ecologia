@@ -13,7 +13,7 @@ Aqui se encuentre materiales para el curso-taller de análisis de datos con mode
 
 Mas recursos:
 
-[Curso introduccion](https://www.uv.es/vcoll/data-wrangling.html)
+[Curso introductorio](https://www.uv.es/vcoll/data-wrangling.html)
 
 [Que es Tidyverse?](https://gonzalezgouveia.com/que-es-tidyverse-8-paquetes-para-ciencia-de-datos/)
 
@@ -23,4 +23,4 @@ Mas recursos:
 
 [Software Carpentry](https://swcarpentry.github.io/r-novice-gapminder-es/about/index.html)
 
-
+[LatinR Conference](https://latin-r.com/)
