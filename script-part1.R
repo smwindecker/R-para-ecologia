@@ -5,7 +5,7 @@
 
 # cargamos los paquetes de funciones que usaremos
 library(ggplot2)
-library(performance)
+library(performance) # ademas necesitas paquetes `see` y `patchwork`
 
 # para replicar los mismos resultados en cada participante
 # usamos set.seed para que cada generacion aleatoria
@@ -14,18 +14,26 @@ set.seed(111)
 
 # cargamos los datos
 predictores <- read.csv("data/predictor_variables.csv", stringsAsFactors = FALSE)
+str(predictores)
+levels(predictores$mountain_range)
+predictores$mountain_range <- as.factor(predictores$mountain_range)
+unique(predictores$year)
 
 # datos de la variable respuesta continua: precipitación
 train_data <- data.frame(precipitacion = predictores$precipitation,
                          elevacion = predictores$elevation_m)
-
+head(train_data)
+View(train_data)
+dim(train_data)
+train_data[2456, 2]
+train_data[2456, 'elevacion']
+train_data[2456, ]
 
 ### explorando los datos:
-
-hist(predictores$precipitation)
+hist(train_data$precipitacion)
 # variable respuesta es continua
 
-hist(predictores$elevation_m)
+hist(train_data$elevacion)
 # variable predictora es bastante normal, no necesita transformacion
 
 # generamos un gráfico personalizado para visualizar los datos
@@ -46,16 +54,14 @@ mod <- lm(precipitacion ~ elevacion,
 # precipitación es var. respuesta
 # y elevación su var. predictora
 
-# chequeo visual de los resultados
-check_model(mod)
-check_normality(mod)
-check_heteroscedasticity(mod)
-
 # summarise es una función para reportar un resumen del modelo
 summary(mod)
 
 ### Diagnostico y evaluación de los modelos
-  
 ## evaluacion visual de normalidad de los residuales
-hist(residuals(mod)) # hist genera un histograma
-# residuals(modelo) entrega los valores de los residuales
+# chequeo visual de los resultados
+check_model(mod)
+check_normality(mod)
+check_heteroscedasticity(mod)
+hist(mod$residuals) # o hist(residuals(mod))
+plot(mod$residuals, train_data$elevacion)
