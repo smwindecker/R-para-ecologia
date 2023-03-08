@@ -64,7 +64,7 @@ model.matrix(~ mountain_range, data = train_data)
 # convertir las niveles de montana de 4 a 2 para hacer ttest
 train_data$region <- ifelse(train_data$mountain_range %in% 
                               c("Monitor", "Toquima"), "East", "West")
-# ifelse(condicion, hacer esto si es VERDAD, 
+# ifelse(condición, hacer esto si es VERDAD, 
 #       hacer esto otro si es FALSO)
 
 tmod <- t.test(precipitacion ~ region, data = train_data)
