@@ -4,6 +4,7 @@
 ### Modelos mixtos
 library(lme4)
 library(ggplot2)
+library(performance)
 
 # interceptos aleatorios
 # repuesta ~ fixed_effects + (1 | random_effects)
@@ -27,15 +28,15 @@ sleepstudy |>
   ggplot(aes(x = Days,
              y = Reaction)) +
   geom_point() +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", level = 0.95) +
   labs(title = "RT over successive days") +
   theme_minimal()
 
 # modelo lineal agnóstico (sin reportar variabilidad 
-# entre individuos)
-naive_model <- lm(data = sleepstudy,
-                 Reaction ~ Days)
-summary(naive_model)
+# entre individuos) 
+ingenuo_model <- lm(data = sleepstudy,
+                  Reaction ~ Days)
+summary(ingenuo_model)
 
 # mostrando la no-independencia al graficar por individuo
 sleepstudy |>
@@ -59,10 +60,10 @@ sleepstudy |>
 # modelo con interceptos y pendientes aleatorias
 model_full <- lmer(data = sleepstudy,
                    Reaction ~ Days + (1 + Days | Subject),
-                   REML = FALSE)
+                   REML = FALSE) # == estimacion por maximum likelihood
 summary(model_full)
 
-# noten que ya no se muestra en el summary los valores de significancia
+# noten que ya no se muestra en el resumen los valores de significancia
 # de los coeficientes: esto es para promover la contrastacion con modelo
 # nulo, que en este caso seria el modelo SOLO CON EFECTOS ALEATORIOS
 
@@ -85,4 +86,6 @@ VarCorr(model_full)
 
 # print the random effects
 # ranef(mod_int)
+
+performance::r2(model_full)
 
