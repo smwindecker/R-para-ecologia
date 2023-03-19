@@ -21,6 +21,8 @@ Para descargar un archivo comprimido con todo los contenidos deberan clickear en
 
 Mas recursos:
 
+[Hojas de referencia R](https://www.maximaformacion.es/blog-dat/estadistica-r-libros-y-hojas-de-referencia-en-espanol/)
+
 [Curso introductorio](https://www.uv.es/vcoll/data-wrangling.html)
 
 [Que es Tidyverse?](https://gonzalezgouveia.com/que-es-tidyverse-8-paquetes-para-ciencia-de-datos/)
